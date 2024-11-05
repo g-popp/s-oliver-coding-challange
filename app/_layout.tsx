@@ -2,26 +2,36 @@ import { SplashScreen, Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 
-SplashScreen.preventAutoHideAsync();
+import Logo from '@/assets/images/Logo.svg';
 
-export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    'Helvetica Neue': require('../assets/fonts/HelveticaNeueMedium.otf'),
-    'Helvetica Neue Bold': require('../assets/fonts/HelveticaNeueBold.otf'),
-    'Helvetica Neue Black': require('../assets/fonts/HelveticaNeueBlack.otf'),
-  });
+// SplashScreen.preventAutoHideAsync();
 
-  useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded, error]);
+// export default function Layout() {
+//   const [loaded, error] = useFonts({
+//     'Helvetica Neue': require('../assets/fonts/HelveticaNeueMedium.otf'),
+//     'Helvetica Neue Bold': require('../assets/fonts/HelveticaNeueBold.otf'),
+//     'Helvetica Neue Black': require('../assets/fonts/HelveticaNeueBlack.otf'),
+//   });
 
-  if (!loaded && !error) return null;
+//   useEffect(() => {
+//     if (loaded || error) {
+//       SplashScreen.hideAsync();
+//     }
+//   }, [loaded, error]);
 
+//   if (!loaded && !error) return null;
+
+//   return (
+//     <Stack>
+//       <Stack.Screen name='(tabs)' options={{headerShown: false}}/>
+//     </Stack>
+//   );
+// }
+
+export default function Layout() {
   return (
     <Stack>
-      <Stack.Screen name='index' />
+      <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
     </Stack>
   );
 }
