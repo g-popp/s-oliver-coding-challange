@@ -13,7 +13,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.g-popp.s-oliver-coding-challange"
     },
     "android": {
       "adaptiveIcon": {
