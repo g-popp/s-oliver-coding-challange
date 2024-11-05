@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
+    "server": "json-server --watch ./server/db.json --port 3001",
     "prebuild": "expo prebuild",
     "android": "expo run:android",
     "ios": "expo run:ios",
@@ -27,6 +28,7 @@
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
+    "json-server": "^1.0.0-beta.3",
     "lucide-react-native": "^0.454.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
