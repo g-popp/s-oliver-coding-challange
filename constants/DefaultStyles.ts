@@ -13,6 +13,6 @@ export const DefaultStyles = {
   },
   tabBarLabelStyle: {
     fontFamily: 'Helvetica Neue',
-    fontSize: 12
-  }
+    fontSize: 12,
+  },
 };
