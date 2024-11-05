@@ -27,6 +27,16 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/HelveticaNeueMedium.otf",
+            "./assets/fonts/HelveticaNeueBlack.otf",
+            "./assets/fonts/HelveticaNeueBold.otf"
+          ]
+        }
+      ],
       "expo-router"
     ],
     "experiments": {
