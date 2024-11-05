@@ -1,39 +1,39 @@
-import { Heart, Settings, TextSearch } from 'lucide-react-native';
+import {
+  icons,
+} from 'lucide-react-native';
 import { Tabs } from 'expo-router';
 import Logo from '@/assets/images/Logo.svg';
+import { useThemeColors } from '@/hooks/useThemeColors';
+import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
+import { DefaultStyles } from '@/constants/DefaultStyles';
+
+const createScreenOptions = (title: string, iconName: keyof typeof icons): BottomTabNavigationOptions => {
+  const LucideIcon = icons[iconName];
+
+  return {
+    title,
+    tabBarIcon: ({ color }: { color: string }) => <LucideIcon size={28} color={color} />,
+    tabBarLabelStyle: { ...DefaultStyles.tabBarLabelStyle },
+  };
+};
 
 export default function TabLayout() {
+  const { tabIconDefault, tabIconSelected, backgroundEmphasis } = useThemeColors();
+
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#FC0000',
-        headerTitle: () => <Logo width={70} height={50} />,
+        headerTitle: () => <Logo width={75} height={25} />,
+        tabBarActiveTintColor: tabIconSelected,
+        tabBarInactiveTintColor: tabIconDefault,
+        headerTransparent: true,
+        tabBarStyle: { backgroundColor: backgroundEmphasis },
+        headerShadowVisible: false,
       }}
     >
-      <Tabs.Screen
-        name='index'
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <TextSearch size={28} color={color} />,
-          tabBarLabelStyle: { fontFamily: 'Helvetica Neue' },
-        }}
-      />
-      <Tabs.Screen
-        name='wishlist'
-        options={{
-          title: 'Wishlist',
-          tabBarIcon: ({ color }) => <Heart size={28} color={color} />,
-          tabBarLabelStyle: { fontFamily: 'Helvetica Neue' },
-        }}
-      />
-      <Tabs.Screen
-        name='settings'
-        options={{
-          title: 'Settings',
-          tabBarIcon: ({ color }) => <Settings size={28} color={color} />,
-          tabBarLabelStyle: { fontFamily: 'Helvetica Neue' },
-        }}
-      />
+      <Tabs.Screen name='index' options={createScreenOptions('Explore', "TextSearch")} />
+      <Tabs.Screen name='wishlist' options={createScreenOptions('Wishlist', "Heart")} />
+      <Tabs.Screen name='settings' options={createScreenOptions('Settings', "Settings")} />
     </Tabs>
   );
 }
