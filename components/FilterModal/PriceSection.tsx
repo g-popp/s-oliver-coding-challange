@@ -5,8 +5,10 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export const PriceSection = ({
   priceRange,
+  onValueChange,
 }: {
   priceRange: { min: number; max: number };
+  onValueChange: (min: number, max: number) => void;
 }) => {
   const { text, tabIconDefault, tabIconSelected } = useThemeColors();
   return (
@@ -15,6 +17,7 @@ export const PriceSection = ({
         PRICE
       </Text>
       <RangeSlider
+        onChange={(min, max) => onValueChange(min, max)}
         type='range'
         min={priceRange.min}
         max={priceRange.max}

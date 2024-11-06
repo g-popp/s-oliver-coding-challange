@@ -12,6 +12,7 @@ import { BrandSection } from './BrandSection';
 import { ColorSection } from './ColorSection';
 import { ApplyButton } from './ApplyButton';
 import { ResetButton } from './ResetButton';
+import { useFilterStore } from '@/store/FilterStore';
 
 type FilterModalProps = {
   priceRange: { min: number | undefined; max: number | undefined };
@@ -28,6 +29,25 @@ export const FilterModal = forwardRef<BottomSheetModal, FilterModalProps>(
 
     const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
     const [selectedColors, setSelectedColors] = useState<string[]>([]);
+    const [selectedPriceRange, setSelectedPriceRange] = useState<
+      | {
+          min: number;
+          max: number;
+        }
+      | undefined
+    >(undefined);
+
+    const setFilteredBrands = useFilterStore(
+      (state) => state.setFilteredBrands
+    );
+    const setFilteredColors = useFilterStore(
+      (state) => state.setFilteredColors
+    );
+    const setFilteredPriceRange = useFilterStore(
+      (state) => state.setFilteredPriceRange
+    );
+
+    const reset = useFilterStore((state) => state.resetFilter);
 
     const toggleColor = (color: string) => {
       setSelectedColors((prev) =>
@@ -43,6 +63,21 @@ export const FilterModal = forwardRef<BottomSheetModal, FilterModalProps>(
           ? prev.filter((b) => b !== brand)
           : [...prev, brand]
       );
+    };
+
+    const applyFilters = () => {
+      setFilteredBrands(selectedBrands);
+      setFilteredColors(selectedColors);
+      if (selectedPriceRange)
+        setFilteredPriceRange(selectedPriceRange.min, selectedPriceRange.max);
+      dismiss();
+    };
+
+    const resetFilters = () => {
+      setSelectedBrands([]);
+      setSelectedColors([]);
+      setSelectedPriceRange(undefined);
+      reset();
     };
 
     const renderBackdrop = useCallback(
@@ -73,6 +108,7 @@ export const FilterModal = forwardRef<BottomSheetModal, FilterModalProps>(
               min: props.priceRange.min ?? 0,
               max: props.priceRange.max ?? 0,
             }}
+            onValueChange={(min, max) => setSelectedPriceRange({ min, max })}
           />
           <BrandSection
             brands={props.brands}
@@ -85,8 +121,8 @@ export const FilterModal = forwardRef<BottomSheetModal, FilterModalProps>(
             toggleColor={toggleColor}
           />
           <View style={styles.buttonContainer}>
-            <ApplyButton />
-            <ResetButton />
+            <ApplyButton onPress={applyFilters} />
+            <ResetButton onPress={resetFilters} />
           </View>
         </View>
       </BottomSheetModal>

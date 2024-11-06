@@ -2,10 +2,11 @@ import { DefaultStyles } from '@/constants/DefaultStyles';
 import { useThemeColors } from '@/hooks/useThemeColors';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-export const ResetButton = () => {
+export const ResetButton = ({ onPress }: { onPress: () => void }) => {
   const { text, background } = useThemeColors();
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={[
         styles.button,
         styles.resetButton,
