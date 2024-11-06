@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { getArticles } from '@/api/articles';
 import { ProductCard } from '@/components/ProductCard';
 import { ThemedTextInput } from '@/components/ThemedTextInput';
@@ -8,10 +8,16 @@ import { useQuery } from '@tanstack/react-query';
 import { ActivityIndicator, View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { FilterButton } from '@/components/FilterButton';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { FilterModal } from '@/components/FilterModal';
 
 export default function Tab() {
   const { background, text } = useThemeColors();
   const [searchQuery, setSearchQuery] = useState<string>('');
+
+  const filterModalRef = useRef<BottomSheetModal>(null);
+
+  const presentFilterModal = () => filterModalRef.current?.present();
 
   const { data, isLoading } = useQuery({
     queryKey: ['articles'],
@@ -56,7 +62,7 @@ export default function Tab() {
           />
         </View>
 
-        <FilterButton />
+        <FilterButton onPress={presentFilterModal} />
       </View>
       {isLoading ? (
         <View style={{ ...DefaultStyles.container }}>
@@ -73,6 +79,8 @@ export default function Tab() {
           estimatedItemSize={30}
         />
       ) : null}
+
+      <FilterModal ref={filterModalRef} />
     </View>
   );
 }
