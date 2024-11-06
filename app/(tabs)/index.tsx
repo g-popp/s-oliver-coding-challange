@@ -15,7 +15,7 @@ import {
   useFilteredData,
   usePriceRange,
   useUniqueColorsByGroup,
-} from '../hooks/useProductFilters';
+} from '@/hooks/useProductFilters';
 
 export type ProductColorGroup = Product['colorVariants'][number]['color'][];
 
