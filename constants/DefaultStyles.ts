@@ -15,4 +15,11 @@ export const DefaultStyles = {
     fontFamily: 'Helvetica Neue',
     fontSize: 12,
   },
+  textInput: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    fontFamily: 'Helvetica Neue',
+  },
 };

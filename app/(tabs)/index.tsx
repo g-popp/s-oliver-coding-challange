@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { getArticles } from '@/api/articles';
 import { ProductCard } from '@/components/ProductCard';
+import { ThemedTextInput } from '@/components/ThemedTextInput';
 import { DefaultStyles } from '@/constants/DefaultStyles';
 import { useThemeColors } from '@/hooks/useThemeColors';
 import { useQuery } from '@tanstack/react-query';
@@ -7,12 +9,19 @@ import { ActivityIndicator, View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
 export default function Tab() {
-  const { background } = useThemeColors();
+  const { background, text } = useThemeColors();
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const { data, isLoading } = useQuery({
     queryKey: ['articles'],
     queryFn: getArticles,
   });
+
+  const filteredData = data?.filter(
+    (product: { name: string; brand: string }) =>
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.brand.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const renderItem = ({ item: product }: { item: Product }) => (
     <ProductCard
@@ -26,15 +35,20 @@ export default function Tab() {
 
   return (
     <View style={[DefaultStyles.safeArea, { backgroundColor: background }]}>
+      <ThemedTextInput
+        placeholder='Search...'
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+      />
       {isLoading ? (
         <View style={{ ...DefaultStyles.container }}>
-          <ActivityIndicator size={'small'} />
+          <ActivityIndicator size={'small'} color={text} />
         </View>
       ) : null}
 
-      {data ? (
+      {filteredData ? (
         <FlashList
-          data={data || []}
+          data={filteredData || []}
           renderItem={renderItem}
           keyExtractor={(product) => product.id.toString()}
           numColumns={2}
