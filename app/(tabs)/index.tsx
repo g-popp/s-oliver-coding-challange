@@ -7,6 +7,7 @@ import { useThemeColors } from '@/hooks/useThemeColors';
 import { useQuery } from '@tanstack/react-query';
 import { ActivityIndicator, View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
+import { FilterButton } from '@/components/FilterButton';
 
 export default function Tab() {
   const { background, text } = useThemeColors();
@@ -35,11 +36,28 @@ export default function Tab() {
 
   return (
     <View style={[DefaultStyles.safeArea, { backgroundColor: background }]}>
-      <ThemedTextInput
-        placeholder='Search...'
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-      />
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignContent: 'center',
+        }}
+      >
+        <View
+          style={{
+            flex: 0.8,
+          }}
+        >
+          <ThemedTextInput
+            placeholder='Search...'
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            iconName='Search'
+          />
+        </View>
+
+        <FilterButton />
+      </View>
       {isLoading ? (
         <View style={{ ...DefaultStyles.container }}>
           <ActivityIndicator size={'small'} color={text} />
