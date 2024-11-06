@@ -1,5 +1,23 @@
+type Color = {
+  variant: string;
+  group: string;
+  value: string;
+};
+
+type ColorVariant = {
+  wishList: boolean;
+  shoppingCart: boolean;
+  color: Color;
+  pictures: {
+    front: string;
+    flat: string;
+    back: string;
+    outfit: string;
+  };
+};
+
 type Product = {
-  id: number;
+  id: string;
   name: string;
   detail: string;
   category: string;
@@ -10,19 +28,5 @@ type Product = {
     sustainable: boolean;
     premium: boolean;
   };
-  colorVariants: {
-    wishList: boolean;
-    shoppingCart: boolean;
-    color: {
-      variant: string;
-      group: string;
-      value: string;
-    };
-    pictures: {
-      front: string;
-      flat: string;
-      back: string;
-      outfit: string;
-    };
-  }[];
+  colorVariants: ColorVariant[];
 };

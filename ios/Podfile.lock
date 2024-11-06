@@ -289,6 +289,8 @@ PODS:
   - hermes-engine (0.74.5):
     - hermes-engine/Pre-built (= 0.74.5)
   - hermes-engine/Pre-built (0.74.5)
+  - jesster2k10-react-native-range-slider (0.3.1):
+    - React
   - libavif/core (0.11.1)
   - libavif/libdav1d (0.11.1):
     - libavif/core
@@ -1573,6 +1575,7 @@ DEPENDENCIES:
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
+  - "jesster2k10-react-native-range-slider (from `../node_modules/@jesster2k10/react-native-range-slider`)"
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -1693,6 +1696,8 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2024-06-28-RNv0.74.3-7bda0c267e76d11b68a585f84cfdd65000babf85
+  jesster2k10-react-native-range-slider:
+    :path: "../node_modules/@jesster2k10/react-native-range-slider"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTDeprecation:
@@ -1828,6 +1833,7 @@ SPEC CHECKSUMS:
   fmt: 8083860262b879fc92bca720969c91bdb88ada93
   glog: 77f46f3d5c779b34a09b51a92fa9e0fcab64df1c
   hermes-engine: e52d9706e7fd6078e529d8ada1af7b95946c4ce6
+  jesster2k10-react-native-range-slider: d154a7f137bef9e45dfc5ab80766ad5de095034d
   libavif: 84bbb62fb232c3018d6f1bab79beea87e35de7b7
   libdav1d: 23581a4d8ec811ff171ed5e2e05cd27bad64c39f
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009

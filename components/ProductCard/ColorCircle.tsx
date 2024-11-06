@@ -6,22 +6,37 @@ const ColorCircle = ({
   selected,
   selectedColor,
   onPress,
+  circleRadius = 15,
 }: {
   color: string;
   selected: boolean;
   selectedColor: string;
   onPress: () => void;
+  circleRadius?: number;
 }) => {
-  const { tabIconDefault } = useThemeColors();
+  const { background } = useThemeColors();
   return (
     <TouchableOpacity onPress={onPress} style={styles.touchable}>
       <View
         style={[
           styles.outerCircle,
-          { borderColor: selected ? selectedColor : tabIconDefault },
+          { borderColor: selected ? selectedColor : background },
+          {
+            width: circleRadius ? circleRadius + 7 : 20,
+            height: circleRadius ? circleRadius + 7 : 20,
+          },
         ]}
       >
-        <View style={[styles.innerCircle, { backgroundColor: color }]} />
+        <View
+          style={[
+            styles.innerCircle,
+            {
+              backgroundColor: color,
+              width: circleRadius ?? 15,
+              height: circleRadius ?? 15,
+            },
+          ]}
+        />
       </View>
     </TouchableOpacity>
   );
@@ -35,17 +50,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   outerCircle: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    borderWidth: 1,
+    borderRadius: 50,
+    borderWidth: 1.1,
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 2, // Small distance between outer and inner circles
+    margin: 2,
   },
   innerCircle: {
-    width: 15,
-    height: 15,
     borderRadius: 50,
   },
 });

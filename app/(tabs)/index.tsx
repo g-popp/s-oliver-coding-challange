@@ -10,13 +10,20 @@ import { FlashList } from '@shopify/flash-list';
 import { FilterButton } from '@/components/FilterButton';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { FilterModal } from '@/components/FilterModal';
+import {
+  useBrands,
+  useFilteredData,
+  usePriceRange,
+  useUniqueColorsByGroup,
+} from '../hooks/useProductFilters';
+
+export type ProductColorGroup = Product['colorVariants'][number]['color'][];
 
 export default function Tab() {
   const { background, text } = useThemeColors();
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const filterModalRef = useRef<BottomSheetModal>(null);
-
   const presentFilterModal = () => filterModalRef.current?.present();
 
   const { data, isLoading } = useQuery({
@@ -24,11 +31,10 @@ export default function Tab() {
     queryFn: getArticles,
   });
 
-  const filteredData = data?.filter(
-    (product: { name: string; brand: string }) =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.brand.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredData = useFilteredData(data, searchQuery);
+  const priceRange = usePriceRange(data) || { min: 0, max: 0 };
+  const brands = useBrands(data);
+  const colors = useUniqueColorsByGroup(data);
 
   const renderItem = ({ item: product }: { item: Product }) => (
     <ProductCard
@@ -80,7 +86,12 @@ export default function Tab() {
         />
       ) : null}
 
-      <FilterModal ref={filterModalRef} />
+      <FilterModal
+        ref={filterModalRef}
+        priceRange={priceRange}
+        brands={brands}
+        colors={colors}
+      />
     </View>
   );
 }
